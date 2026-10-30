@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRINCE MOVIE</title>
+    <meta name="description" content="PRINCE MOVIE - streaming, films, séries, K-drama, manga, manhwa et live sport." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="statusbar">
+        <div class="time">23:00</div>
+        <div class="status-icons">
+          <span>◔</span>
+          <span>◉</span>
+          <span>◍</span>
+          <span>◌</span>
+        </div>
+      </div>
+
+      <header class="topbar">
+        <div class="app-brand-wrap">
+          <button class="icon-btn" aria-label="Fermer">×</button>
+          <button class="icon-btn" aria-label="Menu">⌄</button>
+        </div>
+        <div class="header-title">
+          <h1>PRINCE MOVIE</h1>
+        </div>
+        <div class="header-tools">
+          <button class="icon-btn" aria-label="Profile">◔</button>
+          <button class="icon-btn" aria-label="Notifications">◫</button>
+          <button class="icon-btn" aria-label="More">⋮</button>
+        </div>
+      </header>
+
+      <main class="main-layout">
+        <aside class="sidebar left-panel">
+          <div class="brand-box">
+            <div class="brand-logo">P</div>
+            <div>
+              <div class="brand-name">prince-movie</div>
+              <div class="brand-sub">premium stream</div>
+            </div>
+          </div>
+
+          <nav class="side-nav">
+            <button class="nav-item active"><span>🏠</span> Accueil</button>
+            <button class="nav-item"><span>🎬</span> Films</button>
+            <button class="nav-item"><span>📺</span> Séries</button>
+            <button class="nav-item"><span>🇰🇷</span> K-Drama</button>
+            <button class="nav-item"><span>👹</span> Hentai</button>
+            <button class="nav-item"><span>📚</span> Manga</button>
+            <button class="nav-item"><span>🦄</span> Manhwa</button>
+            <button class="nav-item"><span>⚽</span> Live Sport</button>
+          </nav>
+        </aside>
+
+        <section class="content-panel">
+          <div class="project-banner">
+            <span class="project-dot"></span>
+            <span class="project-name">prince-movie's projects</span>
+            <button class="mini-btn">Hobby</button>
+          </div>
+
+          <div class="hero-section">
+            <div class="hero-copy">
+              <p class="eyebrow">streaming premium</p>
+              <h2>Regarde les films, séries et sport en direct.</h2>
+              <p>
+                Accès rapide aux sorties du moment, aux dramas, aux mangas et aux flux live avec plusieurs serveurs de secours.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-btn" data-open-auth="login">Se connecter</button>
+                <button class="secondary-btn" data-open-auth="signup">Créer un compte</button>
+              </div>
+            </div>
+            <div class="hero-feature">
+              <div class="feature-card featured">
+                <span class="feature-kicker">Sortie vedette</span>
+                <h3>Shadow Reign</h3>
+                <div class="meta-row">
+                  <span>Action</span>
+                  <span>2026</span>
+                </div>
+              </div>
+              <div class="feature-card small">
+                <ul>
+                  <li><span>Nov</span><strong>12</strong><em>Neon City</em></li>
+                  <li><span>Nov</span><strong>22</strong><em>Afterlight</em></li>
+                  <li><span>Dec</span><strong>04</strong><em>Storm Ride</em></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-box">
+              <label for="contentSearch">Recherche</label>
+              <input id="contentSearch" type="search" placeholder="Film, série, sport..." />
+            </div>
+            <div class="category-box">
+              <label for="categoryFilter">Catégorie</label>
+              <select id="categoryFilter">
+                <option value="all">Tous</option>
+                <option value="FILM">FILM</option>
+                <option value="SERIE">SERIE</option>
+                <option value="K-DRAMA">K-DRAMA</option>
+                <option value="HENTAI">HENTAI</option>
+                <option value="MANGA">MANGA</option>
+                <option value="MANWHA">MANWHA</option>
+                <option value="LIVE SPORT">LIVE SPORT</option>
+              </select>
+            </div>
+          </div>
+
+          <section class="catalog-section">
+            <div class="section-header">
+              <h3>À regarder maintenant</h3>
+              <span id="catalogCount">0 contenus</span>
+            </div>
+            <div id="catalogGrid" class="catalog-grid"></div>
+          </section>
+
+          <section class="catalog-section lower">
+            <div class="section-header">
+              <h3>Serveurs de secours</h3>
+            </div>
+            <div id="serverList" class="server-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="authModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close-auth></div>
+      <div class="auth-panel">
+        <button class="close-btn" aria-label="Fermer" data-close-auth>×</button>
+        <div class="auth-switcher">
+          <button class="switch active" data-tab="login">Connexion</button>
+          <button class="switch" data-tab="signup">Créer un compte</button>
+        </div>
+
+        <form id="loginForm" class="auth-form active">
+          <h3>Connectez-vous</h3>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Mot de passe
+            <input type="password" name="password" placeholder="••••••••" required />
+          </label>
+          <button type="submit" class="primary-btn auth-submit">Se connecter</button>
+          <p class="auth-status" id="loginStatus"></p>
+        </form>
+
+        <form id="signupForm" class="auth-form">
+          <h3>Créer un compte</h3>
+          <label>
+            Nom complet
+            <input type="text" name="name" placeholder="Votre nom" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Mot de passe
+            <input type="password" name="password" placeholder="••••••••" required />
+          </label>
+          <button type="submit" class="primary-btn auth-submit">Créer mon compte</button>
+          <p class="auth-status" id="signupStatus"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="playerModal" class="modal hidden" aria-hidden="true">
+      <div class="player-backdrop" data-close-player></div>
+      <div class="player-panel">
+        <button class="close-btn" aria-label="Fermer" data-close-player>×</button>
+        <div class="player-header">
+          <div>
+            <span class="player-kicker">Lecture</span>
+            <h3 id="playerTitle">Titre</h3>
+          </div>
+          <span id="playerCategory" class="pill"></span>
+        </div>
+
+        <div class="video-shell">
+          <video id="videoPlayer" controls playsinline poster="" preload="metadata"></video>
+        </div>
+
+        <div class="server-panel">
+          <div class="server-panel-header">
+            <h4>Serveurs</h4>
+            <span>Fallback automatique</span>
+          </div>
+          <div id="serverButtons" class="server-buttons"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = 'http://51.75.118.170:20041';
+
+      const demoCatalog = [
+        { id: 1, title: 'Shadow Reign', type: 'FILM', image: 'linear-gradient(135deg, #7c3aed 0%, #0ea5e9 100%)', description: 'Action / Thriller', release: '2026-11-12', servers: ['https://samplelib.com/lib/preview/mp4/sample-5s.mp4', 'https://www.w3schools.com/html/mov_bbb.mp4', 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'] },
+        { id: 2, title: 'Moonlight Circuit', type: 'SERIE', image: 'linear-gradient(135deg, #f97316 0%, #ef4444 100%)', description: 'Sci-fi / Drama', release: '2026-11-21', servers: ['https://samplelib.com/lib/preview/mp4/sample-10s.mp4', 'https://www.w3schools.com/html/movie.mp4'] },
+        { id: 3, title: 'The Seoul Echo', type: 'K-DRAMA', image: 'linear-gradient(135deg, #0f172a 0%, #2563eb 100%)', description: 'Romance / Mystery', release: '2026-11-27', servers: ['https://www.w3schools.com/html/mov_bbb.mp4', 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4'] },
+        { id: 4, title: 'Forbidden Love', type: 'HENTAI', image: 'linear-gradient(135deg, #ec4899 0%, #7c3aed 100%)', description: 'Adult / Drama', release: '2026-12-03', servers: ['https://samplelib.com/lib/preview/mp4/sample-10s.mp4', 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'] },
+        { id: 5, title: 'One Punch Hero', type: 'MANGA', image: 'linear-gradient(135deg, #22c55e 0%, #14b8a6 100%)', description: 'Adventure', release: '2026-12-08', servers: ['https://www.w3schools.com/html/movie.mp4', 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4'] },
+        { id: 6, title: 'Skyline Hunters', type: 'MANWHA', image: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)', description: 'Fantasy / Action', release: '2026-12-10', servers: ['https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', 'https://www.w3schools.com/html/mov_bbb.mp4'] },
+        { id: 7, title: 'Champions Night', type: 'LIVE SPORT', image: 'linear-gradient(135deg, #0ea5e9 0%, #1d4ed8 100%)', description: 'Football / Live', release: '2026-12-14', servers: ['https://samplelib.com/lib/preview/mp4/sample-10s.mp4', 'https://www.w3schools.com/html/movie.mp4'] },
+      ];
+
+      const state = {
+        catalog: [...demoCatalog],
+        activeCategory: 'all',
+        activeSearch: '',
+        lastLogin: null,
+      };
+
+      const contentSearch = document.getElementById('contentSearch');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const catalogGrid = document.getElementById('catalogGrid');
+      const catalogCount = document.getElementById('catalogCount');
+      const serverList = document.getElementById('serverList');
+      const authModal = document.getElementById('authModal');
+      const playerModal = document.getElementById('playerModal');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const videoPlayer = document.getElementById('videoPlayer');
+
+      function openAuth(mode) {
+        authModal.classList.remove('hidden');
+        authModal.setAttribute('aria-hidden', 'false');
+
+        const tabs = document.querySelectorAll('.switch');
+        tabs.forEach((tab) => {
+          tab.classList.toggle('active', tab.dataset.tab === mode);
+        });
+
+        document.getElementById('loginForm').classList.toggle('active', mode === 'login');
+        document.getElementById('signupForm').classList.toggle('active', mode === 'signup');
+      }
+
+      function closeAuth() {
+        authModal.classList.add('hidden');
+        authModal.setAttribute('aria-hidden', 'true');
+      }
+
+      function openPlayer(item) {
+        document.getElementById('playerTitle').textContent = item.title;
+        document.getElementById('playerCategory').textContent = item.type;
+        playerModal.classList.remove('hidden');
+        playerModal.setAttribute('aria-hidden', 'false');
+
+        const primary = item.servers && item.servers[0] ? item.servers[0] : '';
+        if (primary) {
+          videoPlayer.src = primary;
+          videoPlayer.play().catch(() => {});
+        }
+
+        renderServers(item.servers || []);
+      }
+
+      function closePlayer() {
+        playerModal.classList.add('hidden');
+        playerModal.setAttribute('aria-hidden', 'true');
+        videoPlayer.pause();
+        videoPlayer.removeAttribute('src');
+        videoPlayer.load();
+      }
+
+      function renderServers(servers) {
+        const serverButtons = document.getElementById('serverButtons');
+        serverButtons.innerHTML = '';
+
+        servers.forEach((server, index) => {
+          const button = document.createElement('button');
+          button.className = 'server-btn';
+          button.textContent = `Serveur ${index + 1}`;
+          button.addEventListener('click', () => {
+            videoPlayer.src = server;
+            videoPlayer.play().catch(() => {});
+          });
+          serverButtons.appendChild(button);
+        });
+      }
+
+      function renderServerStatus() {
+        const rows = [
+          'Serveur A - Stable',
+          'Serveur B - Redondance',
+          'Serveur C - 1080p HD',
+          'Serveur D - Fallback rapide',
+        ];
+
+        serverList.innerHTML = rows
+          .map(
+            (row, idx) => `
+              <div class="server-row">
+                <span>${row}</span>
+                <strong class="status-${idx % 2 === 0 ? 'good' : 'warn'}">${idx % 2 === 0 ? 'OK' : 'ALT'}</strong>
+              </div>
+            `
+          )
+          .join('');
+      }
+
+      function filterCatalog() {
+        const term = contentSearch.value.trim().toLowerCase();
+        const filtered = state.catalog.filter((item) => {
+          const matchesCategory = state.activeCategory === 'all' || item.type === state.activeCategory;
+          const matchesSearch = !term || `${item.title} ${item.type} ${item.description}`.toLowerCase().includes(term);
+          return matchesCategory && matchesSearch;
+        });
+
+        catalogCount.textContent = `${filtered.length} contenu${filtered.length > 1 ? 's' : ''}`;
+
+        catalogGrid.innerHTML = filtered.map((item) => `
+          <article class="catalog-card" data-id="${item.id}">
+            <div class="poster" style="background: ${item.image};">
+              <span>${item.type}</span>
+            </div>
+            <div class="catalog-body">
+              <div class="caption-row">
+                <strong>${item.title}</strong>
+                <span>${item.release.slice(0, 4)}</span>
+              </div>
+              <p>${item.description}</p>
+              <div class="card-actions">
+                <button class="play-btn" data-play="${item.id}">Lecture</button>
+                <button class="ghost-btn" data-info="${item.id}">Info</button>
+              </div>
+            </div>
+          </article>
+        `).join('');
+
+        catalogGrid.querySelectorAll('[data-play]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const item = state.catalog.find((entry) => String(entry.id) === button.dataset.play);
+            if (item) openPlayer(item);
+          });
+        });
+
+        catalogGrid.querySelectorAll('[data-info]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const item = state.catalog.find((entry) => String(entry.id) === button.dataset.info);
+            if (item) {
+              alert(`${item.title}\nType: ${item.type}\nDate: ${item.release}\nServeurs: ${item.servers.length}`);
+            }
+          });
+        });
+      }
+
+      async function tryApiRequest(url, options = {}, fallbackValue = null) {
+        try {
+          const response = await fetch(url, {
+            ...options,
+            headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const text = await response.text();
+          if (!text) return fallbackValue;
+          try {
+            return JSON.parse(text);
+          } catch {
+            return text;
+          }
+        } catch (error) {
+          return fallbackValue;
+        }
+      }
+
+      async function loadRemoteCatalog() {
+        const candidatePaths = [
+          '/api/catalog',
+          '/api/content',
+          '/api/film',
+          '/api/movies',
+          '/api/media',
+          '/api/home',
+          '/catalog',
+          '/content',
+        ];
+
+        for (const path of candidatePaths) {
+          const response = await tryApiRequest(`${API_BASE}${path}`, { method: 'GET' }, null);
+          if (response && Array.isArray(response)) {
+            state.catalog = response.map((item) => ({
+              ...item,
+              type: String(item.type || item.category || 'FILM').toUpperCase(),
+              servers: item.servers || item.sources || item.streams || [item.url].filter(Boolean),
+            }));
+            return;
+          }
+          if (response && response.data && Array.isArray(response.data)) {
+            state.catalog = response.data.map((item) => ({
+              ...item,
+              type: String(item.type || item.category || 'FILM').toUpperCase(),
+              servers: item.servers || item.sources || item.streams || [item.url].filter(Boolean),
+            }));
+            return;
+          }
+        }
+      }
+
+      async function loginWithApi(formData) {
+        const payload = {
+          email: formData.get('email'),
+          password: formData.get('password'),
+        };
+
+        const endpoints = [
+          `${API_BASE}/auth/login`,
+          `${API_BASE}/api/auth/login`,
+          `${API_BASE}/login`,
+          `${API_BASE}/api/login`,
+        ];
+
+        for (const endpoint of endpoints) {
+          const result = await tryApiRequest(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+          }, null);
+
+          if (result && (result.success || result.token || result.user || result.message)) {
+            return result;
+          }
+        }
+
+        return { success: true, demoMode: true, message: 'Connexion locale activée' };
+      }
+
+      async function signupWithApi(formData) {
+        const payload = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          password: formData.get('password'),
+        };
+
+        const endpoints = [
+          `${API_BASE}/auth/register`,
+          `${API_BASE}/api/auth/register`,
+          `${API_BASE}/register`,
+          `${API_BASE}/api/register`,
+        ];
+
+        for (const endpoint of endpoints) {
+          const result = await tryApiRequest(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+          }, null);
+
+          if (result && (result.success || result.token || result.user || result.message)) {
+            return result;
+          }
+        }
+
+        return { success: true, demoMode: true, message: 'Compte créé en mode démonstration' };
+      }
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const status = document.getElementById('loginStatus');
+        const formData = new FormData(loginForm);
+        status.textContent = 'Connexion en cours...';
+
+        const result = await loginWithApi(formData);
+        status.textContent = result.message || 'Connexion réussie';
+
+        if (result.success || result.demoMode) {
+          closeAuth();
+          state.lastLogin = formData.get('email');
+        }
+      });
+
+      signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const status = document.getElementById('signupStatus');
+        const formData = new FormData(signupForm);
+        status.textContent = 'Création du compte...';
+
+        const result = await signupWithApi(formData);
+        status.textContent = result.message || 'Compte créé';
+
+        if (result.success || result.demoMode) {
+          closeAuth();
+          state.lastLogin = formData.get('email');
+        }
+      });
+
+      document.querySelectorAll('[data-open-auth]').forEach((button) => {
+        button.addEventListener('click', () => openAuth(button.dataset.openAuth));
+      });
+
+      document.querySelectorAll('[data-close-auth]').forEach((button) => {
+        button.addEventListener('click', closeAuth);
+      });
+
+      document.querySelectorAll('[data-close-player]').forEach((button) => {
+        button.addEventListener('click', closePlayer);
+      });
+
+      document.querySelectorAll('.switch').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const mode = tab.dataset.tab;
+          openAuth(mode);
+        });
+      });
+
+      contentSearch.addEventListener('input', () => {
+        state.activeSearch = contentSearch.value.trim();
+        filterCatalog();
+      });
+
+      categoryFilter.addEventListener('change', () => {
+        state.activeCategory = categoryFilter.value || 'all';
+        filterCatalog();
+      });
+
+      async function init() {
+        await loadRemoteCatalog();
+        renderServerStatus();
+        filterCatalog();
+      }
+
+      init();
+    </script>
+  </body>
+</html>
